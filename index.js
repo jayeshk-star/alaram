@@ -1,6 +1,6 @@
 
-var alaramHours = '';
-var alarmMinutue = '';
+var alHours = '';
+var alMinutes = '';
 var alarmTime = '';
 
 function Timeclock() {
@@ -22,66 +22,68 @@ function Timeclock() {
         seconds = '0' + seconds;
     }
 
-    var week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    var weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-    var clock = week[day] + ' ' + hours + ':' + minutes + ':' + seconds;
+    var clock = weekDays[day] + ' ' + hours + ':' + minutes + ':' + seconds;
 
     document.getElementById('clock').innerHTML = clock;
 
-    if (minutes == alarmMinutue && hours == alaramHours && date.getSeconds() < 5000) {
-        playAudio();
+    if (minutes == alMinutes && hours == alHours && date.getSeconds() < 5000) {
+        playBeep();
     }
 }
-var count = 0
+var count=0
 
 function setAlrmTime() {
     var timeString = String(document.getElementById("alarmTimeSelect").value);
-    alaramHours = timeString.charAt(0) + timeString.charAt(1);
-    alarmMinutue = timeString.charAt(3) + timeString.charAt(4);
-    document.getElementById("alarm").innerHTML = 'Alarm: ' + alaramHours + ':' + alarmMinutue;
-    alert("you create successful alarm")
+    alHours = timeString.charAt(0) + timeString.charAt(1);
+    alMinutes = timeString.charAt(3) + timeString.charAt(4);
+    document.getElementById("alarm").innerHTML = 'Alarm: ' + alHours + ':' + alMinutes;
+    alert ("you create successful alarm")
     count++
 }
 
-function snoozingTime() {
-    if (count <= 3) {
-        if (alarmMinutue != '' || alaramHours != '') {
+function snooze() {
+    if(count<=3){
+    if (alMinutes != '' || alHours != '') {
 
-            var snoozMinutes = 10;
-            if (Number(alarmMinutue) < 50) {
-                snoozMinutes += Number(alarmMinutue);
-                alarmMinutue = String(snoozMinutes);
-                alaramHours = alaramHours;
+        var snoozMinutes = 10;
+        if (Number(alMinutes) < 50) {
+            snoozMinutes += Number(alMinutes);
+            alMinutes = String(snoozMinutes);
+            alHours = alHours;
 
-            } else if (Number(alarmMinutue) >= 50) {
-                snoozMinutes = (Number(alarmMinutue) + snoozMinutes) - 60;
-                if (snoozMinutes === 0) {
-                    alarmMinutue = '00';
-                } else {
-                    alarmMinutue = '0' + String(snoozMinutes);
-                }
-
-                alaramHours = Number(alaramHours) + 1;
-                String(alaramHours);
+        } else if (Number(alMinutes) >= 50) {
+            snoozMinutes = (Number(alMinutes) + snoozMinutes) - 60;
+            if (snoozMinutes === 0) {
+                alMinutes = '00';
+            } else {
+                alMinutes = '0' + String(snoozMinutes);
             }
 
-            document.getElementById("alarm").innerHTML = 'Alarm: ' + alaramHours + ':' + alarmMinutue;
-
+            alHours = Number(alHours) + 1;
+            String(alHours);
         }
-    } else {
-        alert("you use 3 snooze")
+
+        document.getElementById("alarm").innerHTML = 'Alarm: ' + alHours + ':' + alMinutes;
+
     }
+}else{
+    alert("you use 3 snooze")
+}
 }
 
 
-function playAudio() {
-
+function playBeep() {
     var audio = new Audio('audio');
     audio.src = " http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/bonus.wav";
-    if (count <= 3) {
-        audio.play();
-    } else {
+    
+    if(count<=3){
+        audio.play()
+    }else{
         audio.stop();
+        alert("you use 3 snooze")
+    
     }
 }
 
