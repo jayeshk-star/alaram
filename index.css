@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: orange;
+    background-color: whitesmoke;
+    min-width: 100vw;
+    min-height: 100vh;
+  text-align: center;
+}
+
+h1 { 
+    color: orange;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);    
+    font-size: 5vw;
+}
+
+
+
+#setAlrm { 
+    font-size: 1vw;
+    color: orange;
+    background: black;
+    border: 2px solid orange;
+    border-radius: 15px;
+        outline: none;  
+}
+
+#setAlrm:hover {
+    cursor: pointer;
+}
+
+#snoozAlrm { 
+    font-size: 1vw;
+    color: orange;
+    background: black;
+    border: 2px solid orange;
+    border-radius: 15px;
+    outline: none;  
+}
+
+#snoozAlrm:hover {
+    cursor: pointer;
+}
+
+#setAlrm:active {
+    color: rgb(255, 123, 0);
+    background: rgb(24, 24, 24);
+    
+    outline: none;
+}
+
+#alarmTimeSelect {
+    font-size: 3vw;
+        color: orange;
+        background: black;
+        border: 2px solid orange;
+        border-radius: 15px;
+        
+    }
+
+        span { 
+        font-size: 3vw;
+        }
