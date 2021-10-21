@@ -1,9 +1,9 @@
 
-var alHours = '';
-var alMinutes = '';
+var alaraminHours = '';
+var alaraminMinutes = '';
 var alarmTime = '';
 
-function Timeclock() {
+function updatedClock() {
     var date = new Date();
     var hours = date.getHours() + '';
     var minutes = date.getMinutes() + '';
@@ -28,64 +28,69 @@ function Timeclock() {
 
     document.getElementById('clock').innerHTML = clock;
 
-    if (minutes == alMinutes && hours == alHours && date.getSeconds() < 5000) {
+    if (minutes == alaraminMinutes && hours == alaraminHours && date.getSeconds() < 5000) {
         playBeep();
     }
 }
-var count=0
+var count = 0
 
 function setAlrmTime() {
     var timeString = String(document.getElementById("alarmTimeSelect").value);
-    alHours = timeString.charAt(0) + timeString.charAt(1);
-    alMinutes = timeString.charAt(3) + timeString.charAt(4);
-    document.getElementById("alarm").innerHTML = 'Alarm: ' + alHours + ':' + alMinutes;
-    alert ("you create successful alarm")
+    alaraminHours = timeString.charAt(0) + timeString.charAt(1);
+    alaraminMinutes = timeString.charAt(3) + timeString.charAt(4);
+    document.getElementById("alarm").innerHTML = 'Alarm: ' + alaraminHours + ':' + alaraminMinutes;
     count++
+    if(count<=3){
+        
+        alert("you create successful alarm")
+    }else{
+        alert ("you can't create alaram your snooze is done already")
+    }
 }
 
 function snooze() {
-    if(count<=3){
-    if (alMinutes != '' || alHours != '') {
+    if (count <= 3) {
+        if (alaraminMinutes != '' || alaraminHours != '') {
 
-        var snoozMinutes = 10;
-        if (Number(alMinutes) < 50) {
-            snoozMinutes += Number(alMinutes);
-            alMinutes = String(snoozMinutes);
-            alHours = alHours;
+            var snoozMinutes = 10;
+            if (Number(alaraminMinutes) < 50) {
+                snoozMinutes += Number(alaraminMinutes);
+                alaraminMinutes = String(snoozMinutes);
+                alaraminHours = alaraminHours;
 
-        } else if (Number(alMinutes) >= 50) {
-            snoozMinutes = (Number(alMinutes) + snoozMinutes) - 60;
-            if (snoozMinutes === 0) {
-                alMinutes = '00';
-            } else {
-                alMinutes = '0' + String(snoozMinutes);
+            } else if (Number(alaraminMinutes) >= 50) {
+                snoozMinutes = (Number(alaraminMinutes) + snoozMinutes) - 60;
+                if (snoozMinutes === 0) {
+                    alaraminMinutes = '00';
+                } else {
+                    alaraminMinutes = '0' + String(snoozMinutes);
+                }
+
+                alaraminHours = Number(alaraminHours) + 1;
+                String(alaraminHours);
             }
 
-            alHours = Number(alHours) + 1;
-            String(alHours);
+            document.getElementById("alarm").innerHTML = 'Alarm: ' + alaraminHours + ':' + alaraminMinutes;
+
         }
-
-        document.getElementById("alarm").innerHTML = 'Alarm: ' + alHours + ':' + alMinutes;
-
+    } else {
+        alert("you use 3 snooze")
     }
-}else{
-    alert("you use 3 snooze")
-}
 }
 
 
 function playBeep() {
     var audio = new Audio('audio');
     audio.src = " http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/bonus.wav";
-    
-    if(count<=3){
+
+    if (count <= 3) {
         audio.play()
-    }else{
+    } else {
         audio.stop();
         alert("you use 3 snooze")
-    
+
     }
 }
 
-Timeclock();
-setInterval(Timeclock, 1000);
+updatedClock();
+setInterval(updatedClock, 1000);
